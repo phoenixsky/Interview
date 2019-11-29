@@ -1,0 +1,2 @@
+include ':app', ':pluginable', ':pluginable_plugin', ':recyclerview', ':recyclerview2'
+rootProject.name='Interview'
