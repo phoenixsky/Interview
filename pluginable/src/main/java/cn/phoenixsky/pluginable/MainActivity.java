@@ -12,9 +12,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import cn.phoenixsky.pluginable.hidden.Utils;
 import dalvik.system.DexClassLoader;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +32,26 @@ public class MainActivity extends AppCompatActivity {
         // 2. 拿到对象通过反射
 
 
+        Class<Utils> clazz = Utils.class;
+        Utils o = new Utils();
+        try {
+            Field heihei = clazz.getDeclaredField("heihei");
+            heihei.setAccessible(true);
+            heihei.setInt(o,111);
+
+            Field hiahia = clazz.getDeclaredField("hiahia");
+            hiahia.setAccessible(true);
+            hiahia.setInt(null,111);
+
+
+            System.out.println(o.heihei);
+            System.out.println(Utils.hiahia);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
 
 
     }

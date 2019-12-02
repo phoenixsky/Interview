@@ -4,8 +4,12 @@ import android.util.Log;
 
 public class Utils {
 
-    void haha(){
+    public final int heihei = 10;
+
+    public static final int hiahia = 10;
+
+    void haha() {
         System.out.println("haha");
-        Log.e("host","haha");
+        Log.e("host", "haha");
     }
 }
