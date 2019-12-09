@@ -12,15 +12,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import cn.phoenixsky.pluginable.hidden.Utils;
 import dalvik.system.DexClassLoader;
 
 public class MainActivity extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,28 +27,27 @@ public class MainActivity extends AppCompatActivity {
 
         // 插件化App
         // 0. copy APK到目录
-        // 1. 通过DexClassLoader 加载dex文件
+        // 1. 通过dex目录构建DexClassLoader对象
         // 2. 拿到对象通过反射
 
-
-        Class<Utils> clazz = Utils.class;
-        Utils o = new Utils();
+        File file = copyApk2Memory();
+        DexClassLoader dexClassLoader = new DexClassLoader(file.getPath(), getCacheDir().getPath(), null, null);
         try {
-            Field heihei = clazz.getDeclaredField("heihei");
-            heihei.setAccessible(true);
-            heihei.setInt(o,111);
+            Class<?> clazz = dexClassLoader.loadClass("cn.phoenixsky.pluginable_plugin.PluginUtils");
+            Constructor<?> constructor = clazz.getDeclaredConstructors()[0];
+            Object instance = constructor.newInstance();
+            Method method = clazz.getDeclaredMethod("haha");
+            method.invoke(instance);
 
-            Field hiahia = clazz.getDeclaredField("hiahia");
-            hiahia.setAccessible(true);
-            hiahia.setInt(null,111);
-
-
-            System.out.println(o.heihei);
-            System.out.println(Utils.hiahia);
-
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
 
