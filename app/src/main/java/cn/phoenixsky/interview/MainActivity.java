@@ -1,22 +1,27 @@
 package cn.phoenixsky.interview;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final int MSG_CODE_LOAD_DATA = 1;
+
+    private static final String TAG = "MainActivity";
+    private Thread workThread;
+
+    private Object lock = new Object();
 
     static class MyHandler<T extends AppCompatActivity> extends Handler {
         private WeakReference<T> weakReference;
@@ -36,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         HashMap hashMap = new HashMap();
+
 
 
         Integer integer = Integer.valueOf("1");
@@ -51,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
         bubbleSort(arr);
 
 
-        Handler handler = new MyHandler(this);
+        Handler handler = new MyHandler<MainActivity>(this);
 
-
+        fetchData(savedInstanceState != null);
 
         handler.sendMessage(handler.obtainMessage());  // delay = SystemClock.uptimeMillis() + 0
         // 将runnable包装到Message里
@@ -62,9 +67,41 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
             }
         });
-
-
     }
+
+    void fetchData(final boolean needWait) {
+        final MainActivity mainActivity = this;
+        workThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (needWait) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Log.i(TAG, "Thread run : 我现在开始加载控件");
+                try {
+                    Log.i(TAG, "loading... ");
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Log.i(TAG, "Thread run : 我现在加载好了");
+            }
+        });}
+
+
+    @Override
+    protected synchronized void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "onActivityResult：对控件进行操作了");
+//        synchronized (this){
+        workThread.interrupt();
+//        }
+    }
+
 
     /**
      * 冒泡
@@ -94,9 +131,4 @@ public class MainActivity extends AppCompatActivity {
         arr[b] = arr[a] ^ arr[b];
         arr[a] = arr[a] ^ arr[b];
     }
-
-
 }
-
-
-

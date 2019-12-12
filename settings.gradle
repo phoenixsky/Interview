@@ -1,2 +1,2 @@
-include ':app', ':pluginable', ':pluginable_plugin', ':recyclerview', ':recyclerview2', ':thread', ':view', ':jvm'
+include ':app', ':pluginable', ':pluginable_plugin', ':recyclerview', ':recyclerview2', ':thread', ':view', ':annotation_reflect'
 rootProject.name='Interview'
