@@ -15,17 +15,11 @@ public class DashBoard extends View {
         System.out.println("super ...");
     }
 
-    {
+    static {
         System.out.println("...");
 
         System.out.println("fix 1");
-        System.out.println("fix 2");
-        System.out.println("fix 3");
 
-        System.out.println("fix 11");
-        System.out.println("fix 22");
-        System.out.println("fix 33");
-        System.out.println("fix 44");
 
     }
 
