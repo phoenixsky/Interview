@@ -23,6 +23,7 @@ public class DashBoard extends View {
         System.out.println("fix 3");
 
         System.out.println("fix 11");
+        System.out.println("fix 22");
 
     }
 
