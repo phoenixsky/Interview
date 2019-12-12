@@ -21,6 +21,8 @@ public class DashBoard extends View {
         System.out.println("fix 1");
         System.out.println("fix 2");
         System.out.println("fix 3");
+        System.out.println("fix 4");
+        System.out.println("fix 5");
 
     }
 
