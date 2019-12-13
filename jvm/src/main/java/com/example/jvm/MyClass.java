@@ -8,6 +8,9 @@ public class MyClass {
         System.out.println("----start----");
         new Child();
         System.out.println("----end----");
+
+
+        System.out.println(1/2);
     }
 
 
