@@ -64,7 +64,7 @@ public class CustomView extends View {
 
         path.reset();
         path.addRect(rectF, Path.Direction.CW);
-        path.setFillType(Path.FillType.EVEN_ODD);
+//        path.setFillType(Path.FillType.EVEN_ODD);
         path.addArc(arcRectF, 90, 180);
 
     }
