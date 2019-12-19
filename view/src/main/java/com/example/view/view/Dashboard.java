@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.view.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -16,13 +16,15 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.example.view.Utils;
+
 public class Dashboard extends View {
 
     private static final float RADIUS = Utils.dp2px(150);
     private static final float ANGLE = 90f;
 
 
-    private static final float MARK_LEN = 10;
+    private static final float MARK_LEN = 15;
     private static final float MARK_WIDTH = Utils.dp2px(3);
     private static final float MARK_HEIGHT = Utils.dp2px(30);
 
@@ -35,6 +37,7 @@ public class Dashboard extends View {
     private float centerY;
     private RectF arcRectF;
     private DiscretePathEffect arcEffect;
+    private SweepGradient sweepGradient;
 
 
     public Dashboard(Context context, @Nullable AttributeSet attrs) {
@@ -47,9 +50,7 @@ public class Dashboard extends View {
         paint.setStyle(Paint.Style.STROKE);
         path = new Path();
 
-        int color1 = Color.parseColor("#FF6332");
-        int color2 = Color.parseColor("#FDB32E");
-        int color3 = Color.parseColor("#008577");
+
     }
 
     @Override
@@ -73,6 +74,12 @@ public class Dashboard extends View {
         // 弧形
         arcEffect = new DiscretePathEffect(Utils.dp2px(20), Utils.dp2px(5));
 
+        int color1 = Color.parseColor("#FF6332");
+        int color2 = Color.parseColor("#FDB32E");
+        int color3 = Color.parseColor("#008577");
+
+        sweepGradient = new SweepGradient(centerX, centerY, new int[]{color1, color2, color3}, null);
+        paint.setShader(sweepGradient);
 
     }
 
@@ -98,6 +105,11 @@ public class Dashboard extends View {
                 centerX - (float) Math.cos(Math.toRadians(180f - angle)) * POINT,
                 centerY + (float) Math.sin(Math.toRadians(180f - angle)) * POINT,
                 paint);
+
+
+//        paint.setPathEffect(null);
+//        paint.setStyle(Paint.Style.FILL);
+//        canvas.drawCircle(centerX,centerY,RADIUS,paint);
 
     }
 

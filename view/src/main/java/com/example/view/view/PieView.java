@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.view.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,7 +10,9 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-public class Pie extends View {
+import com.example.view.Utils;
+
+public class PieView extends View {
 
     private static final float RADIUS = Utils.dp2px(120);
     private static final float MOVE_SIZE = Utils.dp2px(10);
@@ -29,7 +31,7 @@ public class Pie extends View {
             Color.MAGENTA};
 
 
-    public Pie(Context context, @Nullable AttributeSet attrs) {
+    public PieView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
