@@ -9,7 +9,6 @@ public class MyClass {
         new Child();
         System.out.println("----end----");
 
-
         System.out.println(1/2);
     }
 

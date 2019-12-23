@@ -8,6 +8,7 @@ import android.animation.TypeEvaluator;
 import android.graphics.Interpolator;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -15,6 +16,7 @@ import android.view.animation.DecelerateInterpolator;
 import com.example.view.anim.PointView;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
